@@ -41,3 +41,20 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Create a Loss Appraiser Agent
+appraiser_agent = Agent(
+    role="Loss Appraiser",
+    goal=f"Predict the missing values of stolen items using the RPT-1 model via the call_rpt1 tool use this payload {payload} as input.",
+    backstory="You are an expert insurance appraiser specializing in fine art valuation and theft assessment.",
+    llm="sap/gpt-4o",  # provider/llm - Using one of the models from SAP's model library in Generative AI Hub
+    verbose=True
+)
+
+# Create a task for the appraiser
+appraise_loss_task = Task(
+    description=f"Analyze the theft crime scene and predict the missing values of stolen items using the RPT-1 model via the call_rpt1 tool. Use this dict {payload} as input.",
+    expected_output="JSON with predicted values for the stolen items.",
+    agent=appraiser_agent
+)
