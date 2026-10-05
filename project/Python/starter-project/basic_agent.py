@@ -1,13 +1,34 @@
 import os
 from payload import payload
+from crewai.tools import tool
 from pathlib import Path
 from dotenv import load_dotenv
+from gen_ai_hub.proxy.native.sap.client import RPTClient
 from crewai import Agent, Task, Crew
 
 # Load .env from the same directory as this script
 env_path = Path(__file__).parent / '.env'
 load_dotenv(dotenv_path=env_path)
 
+# Initialize RPT1 client after loading environment variables
+rpt1_client = RPTClient()
+
+@tool("call_rpt1")
+def call_rpt1(payload: dict) -> str:
+    """Call RPT-1 model to predict missing values in the payload.
+
+    Args:
+        payload: A dictionary containing the stolen items data with prediction placeholders.
+                 This should be the exact payload provided in the task inputs.
+
+    Returns:
+        JSON string with predicted insurance values and item categories.
+    """
+    response = rpt1_client.predict(body=payload, model_name="sap-rpt-1-large")
+    if response:
+        return response.json()
+    else:
+        return f"Error: {response.status_code} - {response.text}"
 
 # Create a Loss Appraiser Agent
 appraiser_agent = Agent(
@@ -15,6 +36,7 @@ appraiser_agent = Agent(
     goal="Assess the value of stolen items and provide a professional insurance appraisal report.",
     backstory="You are an experienced insurance appraiser specializing in fine art and valuables. You provide detailed assessments based on your expertise.",
     llm="sap/gpt-4o",  # provider/llm - Using one of the models from SAP's model library in Generative AI Hub
+    tools=[call_rpt1],
     verbose=True
 )
 
