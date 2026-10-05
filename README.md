@@ -6,6 +6,9 @@
 
 This repository contains the material for the "Build code-based AI Agents on SAP Business Technology Platform" CodeJam.
 
+Remember the code below in the BAS will bring you back to the project 
+source ~/projects/codejam-code-based-agents/env/bin/activate
+
 ## Overview
 
 In this CodeJam, you will learn how to build state-of-the-art AI agents using Generative AI Hub, Python and JavaScript. You will also gain the skills to create custom tools for your agents, including leveraging the SAP-RPT-1 model and SAP's grounding service. Finally, you will deploy your agents to BTP.
