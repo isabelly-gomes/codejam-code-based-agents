@@ -1,4 +1,4 @@
-from investigator_crew_sonar import InvestigatorCrew
+from investigator_crew import InvestigatorCrew
 from payload import payload
 
 def main():
