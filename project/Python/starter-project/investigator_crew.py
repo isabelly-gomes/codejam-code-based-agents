@@ -36,6 +36,32 @@ def call_rpt1(payload: dict) -> str:
     except Exception as e:
         return f"Error calling RPT-1: {str(e)}"
 
+
+@tool("call_grounding_service")
+def call_grounding_service(user_question: str) -> str:
+    """Function to call the grounding service and retrieve relevant information based on the user's question."""
+    retrieval_client = RetrievalAPIClient()
+
+    search_filter = RetrievalSearchFilter(
+        id="vector",
+        dataRepositoryType=DataRepositoryType.VECTOR.value,
+        dataRepositories=["0d3b132a-cbe1-4c75-abe7-adfbbab7e002"],  # 👈 Replace with your pipeline ID from SAP AI Launchpad
+        searchConfiguration={
+            "maxChunkCount": 5  # Retrieve top 5 most relevant document chunks
+        },
+    )
+
+    search_input = RetrievalSearchInput(
+        query=user_question,  # The agent's question
+        filters=[search_filter],  # Apply the vector search filter
+    )
+
+    response = retrieval_client.search(search_input)  # Execute the search
+
+    response_dict = json.dumps(response.model_dump(), indent=2)  # Convert to JSON string
+    return response_dict  # Return retrieved document chunks to the agent
+
+
 @CrewBase
 class InvestigatorCrew():
     """InvestigatorCrew crew"""
