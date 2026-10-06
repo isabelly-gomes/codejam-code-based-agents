@@ -6,3 +6,12 @@ appraise_loss_task:
   expected_output: >
     JSON with predicted values for the stolen items.
   agent: appraiser_agent
+
+analyze_evidence_task:
+  description: >
+    Analyze the evidence of the theft that you can access via the grounding tool.
+    Provide any insights that can help in the investigation especially regarding alibis. 
+    Check the evidence iteratively for all three suspect names and provide an analysis for each of them.
+  expected_output: >
+    A detailed analysis of the evidence for each suspect, including any insights that can help in the investigation.
+  agent: evidence_analyst_agent
