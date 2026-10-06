@@ -160,6 +160,20 @@ class InvestigatorCrew():
             config=self.tasks_config['research_criminal_network'],
             context=[self.analyze_evidence_task()]  # Uses internal evidence to inform web searches
         )
+
+    @agent
+    def lead_detective_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['lead_detective_agent'],
+            verbose=True
+        )
+
+    @task
+    def solve_crime(self) -> Task:
+        return Task(
+            config=self.tasks_config['solve_crime'],
+            context=[self.appraise_loss_task(), self.analyze_evidence_task(), self.research_criminal_network()]  # 👈 Lead detective uses results from all three tasks
+        )
     
     @crew
     def crew(self) -> Crew:
