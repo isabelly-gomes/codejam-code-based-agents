@@ -37,3 +37,13 @@ intelligence_researcher_agent:
     international art theft rings, and you know how to distinguish professional
     criminals from amateurs.
   llm: sap/gpt-4o
+
+
+lead_detective_agent:
+  role: >
+    Lead Detective Agent
+  goal: >
+    Solve the crime by determining which of the three suspects stole the painting.
+  backstory: >
+    You are a lead detective, solving burglaries.
+  llm: sap/gpt-4o
