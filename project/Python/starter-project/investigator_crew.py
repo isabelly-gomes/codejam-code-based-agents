@@ -4,6 +4,15 @@ from crewai.tools import tool
 from dotenv import load_dotenv
 from gen_ai_hub.proxy.native.sap.client import RPTClient
 
+import json  # For converting response data to JSON format
+
+from gen_ai_hub.document_grounding.client import RetrievalAPIClient  # Client to connect to grounding service
+from gen_ai_hub.document_grounding.models.retrieval import (
+    RetrievalSearchInput,  # Defines what to search for
+    RetrievalSearchFilter,  # Configures how to search (vector DB, max chunks, etc.)
+)
+from gen_ai_hub.orchestration.models.document_grounding import DataRepositoryType  # Enum for repository types
+
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -88,7 +97,8 @@ class InvestigatorCrew():
         return Agent(
             config=self.agents_config['evidence_analyst_agent'],
             verbose=True,
-            tools=[call_rpt1]
+# Replacing the RPT1 by the grounding pipeline call tools=[call_rpt1]
+            tools=[call_grounding_service]
         )
 
     @task
