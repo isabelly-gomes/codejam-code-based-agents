@@ -146,6 +146,20 @@ class InvestigatorCrew():
             config=self.tasks_config['analyze_evidence_task']
         )
 
+        @agent
+    def intelligence_researcher_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['intelligence_researcher_agent'],
+            verbose=True,
+            tools=[call_sonar_pro_search]  # Web search tool
+        )
+
+    @task
+    def research_criminal_network(self) -> Task:
+        return Task(
+            config=self.tasks_config['research_criminal_network'],
+            context=[self.analyze_evidence_task()]  # Uses internal evidence to inform web searches
+        )
     
     @crew
     def crew(self) -> Crew:
