@@ -38,4 +38,11 @@ research_criminal_network:
     - All findings MUST include web sources with URLs and dates
   agent: intelligence_researcher_agent
 
+solve_crime:
+  description: >
+    Find the thief among the suspects by activating the evidence analyst agent and instructing them to look for information on each of the three suspects
+    using the grounding tool. They should find information on alibis and motives and return a report for you to analyze.
+  expected_output: >
+    The name of the thief and the total value of the stolen goods for the insurance.
+  agent: lead_detective_agent
 
