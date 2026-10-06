@@ -91,7 +91,7 @@ class InvestigatorExecutor(AgentExecutor):
             )
         )
 
-  app_url = (
+app_url = (
     lambda d: f"https://{d.get('application_uris', [])[0]}"
     if d.get("application_uris")
     else None
