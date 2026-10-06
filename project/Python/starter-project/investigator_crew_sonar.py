@@ -146,7 +146,7 @@ class InvestigatorCrew():
             config=self.tasks_config['analyze_evidence_task']
         )
 
-        @agent
+    @agent
     def intelligence_researcher_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['intelligence_researcher_agent'],
