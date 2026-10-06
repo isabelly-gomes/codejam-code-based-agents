@@ -57,6 +57,21 @@ class InvestigatorCrew():
             config=self.tasks_config['appraise_loss_task']
         )
 
+    @agent
+    def evidence_analyst_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['evidence_analyst_agent'],
+            verbose=True,
+            tools=[call_rpt1]
+        )
+
+    @task
+    def analyze_evidence_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['analyze_evidence_task']
+        )
+
+    
     @crew
     def crew(self) -> Crew:
         return Crew(
